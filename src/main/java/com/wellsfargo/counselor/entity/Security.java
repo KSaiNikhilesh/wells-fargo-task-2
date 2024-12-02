@@ -1,20 +1,16 @@
 package com.wellsfargo.counselor.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Security {
+
     @Id
     @GeneratedValue()
     private long securityId;
 
     @ManyToOne
-    @JoinColumn(name = "portfolio_portfolioId")
     private Portfolio portfolio;
 
     @Column(nullable = false)
@@ -24,19 +20,20 @@ public class Security {
     private String category;
 
     @Column(nullable = false)
-    private String purchasePrice;
+    private float purchasePrice;
 
     @Column(nullable = false)
     private String purchaseDate;
 
     @Column(nullable = false)
-    private String quantity;
+    private float quantity;
 
     protected Security() {
 
     }
 
-    public Security(String name, String category, String purchasePrice, String purchaseDate, String quantity) {
+    public Security(Portfolio portfolio, String name, String category, float purchasePrice, String purchaseDate, float quantity) {
+        this.portfolio = portfolio;
         this.name = name;
         this.category = category;
         this.purchasePrice = purchasePrice;
@@ -44,8 +41,16 @@ public class Security {
         this.quantity = quantity;
     }
 
-    public Long getSecurityId() {
+    public long getSecurityId() {
         return securityId;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 
     public String getName() {
@@ -56,7 +61,7 @@ public class Security {
         this.name = name;
     }
 
-    public String getCategory(){
+    public String getCategory() {
         return category;
     }
 
@@ -64,11 +69,11 @@ public class Security {
         this.category = category;
     }
 
-    public String getPurchasePrice() {
+    public float getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(String purchasePrice) {
+    public void setPurchasePrice(float purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 
@@ -80,11 +85,11 @@ public class Security {
         this.purchaseDate = purchaseDate;
     }
 
-    public String getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 }

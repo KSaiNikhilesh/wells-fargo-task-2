@@ -1,25 +1,16 @@
 package com.wellsfargo.counselor.entity;
 
-import java.util.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Client {
+
     @Id
     @GeneratedValue()
     private long clientId;
 
-    @OneToMany(mappedBy = "client")
-    private List<Portfolio> portfolios;
-
     @ManyToOne
-    @JoinColumn(name = "advisor_advisorId")
     private Advisor advisor;
 
     @Column(nullable = false)
@@ -41,7 +32,8 @@ public class Client {
 
     }
 
-    public Client(String firstName, String lastName, String address, String phone, String email) {
+    public Client(Advisor advisor, String firstName, String lastName, String address, String phone, String email) {
+        this.advisor = advisor;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -51,6 +43,14 @@ public class Client {
 
     public Long getClientId() {
         return clientId;
+    }
+
+    public Advisor getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
     }
 
     public String getFirstName() {
